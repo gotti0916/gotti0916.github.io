@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="いろいろ @gotti0916" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"
+    />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <link rel="icon" href="favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Code+Pro"
+      rel="stylesheet"
+    />
+    <link
+      href="http://fonts.googleapis.com/earlyaccess/notosansjapanese.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        color: white;
+        background-color: #2d2d2d;
+        padding: 10px;
+        margin-bottom: 10px;
+        font-size: 20px;
+        font-family: "Source Code Pro", "Noto Sans Japanese";
+      }
+      a {
+        color: white;
+      }
+      #title {
+        color: #fff;
+        font-size: 48px;
+      }
+    </style>
+
+
+    <script>
+      (function() {
+        document.addEventListener("DOMContentLoaded", onLoad);
+
+        var header = document.createElement("section");
+        var greeting = document.createElement("div");
+        var main = document.createElement("div");
+        var breadcrumb = document.createElement("div");
+
+        async function onLoad() {
+          var page = location.search.split("=")[1]; //あとで直す
+          update(page);
+        }
+
+        function transfer(page) {
+          history.pushState(null, null, "?p=" + page);
+          update(page);
+        }
+
+        function update(page) {
+          header.innerHTML = "";
+          greeting.innerHTML = "";
+          main.innerHTML = "";
+          document.body.appendChild(header);
+          header.appendChild(breadcrumb);
+          header.appendChild(greeting);
+          header.appendChild(main);
+
+          breadcrumb.innerHTML =
+            "<a id='button'>~</a> / <a id='button'>" + page + "</a>";
+          var buttons = breadcrumb.querySelectorAll("a");
+          buttons.forEach(function(i) {
+            i.addEventListener("click", function() {
+              transfer(i.innerHTML);
+            });
+          });
+          switch (page) {
+            case undefined:
+            case "~":
+            case "Home":
+              breadcrumb.innerHTML = "";
+              header.className = "title";
+
+              greeting.className = "container";
+
+              greeting.innerHTML +=
+                "<h2> Welcome to <font color=cyan>gotti0916's warehouse!</font> </h2><br/>";
+              greeting.innerHTML +=
+                "<p>[guest@computer ~]$ tree <br/>\
+        .<br/>\
+        ├──<a id='button'>Profile</a><br/>\
+        ├──<a id='button'>Accounts</a><br/>\
+        └──<a id='button'>Project</a><br/>\
+         </p>";
+              var buttons = greeting.querySelectorAll("a");
+              buttons.forEach(function(i) {
+                i.addEventListener("click", function() {
+                  transfer(i.innerHTML);
+                });
+              });
+              break;
+            case "Profile":
+              Profile();
+              break;
+            case "Accounts":
+              Accounts();
+              break;
+            default:
+              Notfound();
+              break;
+          }
+        }
+
+        function Profile() {
+          main.innerHTML =
+            "<br/>\
+    <font color=#9CB7D3>ユーザー名</font>: @gotti0916<br/>\
+    <font color=#9CB7D3>趣味　　　</font>: Programming,CentOS,Security<br/>\
+    <font color=#9CB7D3>所属　　　</font>: 福岡の某高校のJK2<br/>\
+    <font color=#9CB7D3>してること</font>: C#したりpythonやったりvim使ったりCentOS自宅鯖弄ったり。<br/>\
+    <font color=#9CB7D3>自己紹介　</font>: <br/>様々な沼にほんの少しだけ足を突っ込んですぐ戻ってくるいわゆるにわかです。\
+    低レイヤが比較的好きかもしれない。Python、C#、Linux、CTFなどをちょっとずつやってます。<br/>\
+    <font color=#9CB7D3>ひとこと　</font>: rm -rf --no-preserve-root ~/課題";
+        }
+        function Accounts() {
+          main.innerHTML =
+            "<br/>\
+    <font color=#9CB7D3>Twitter</font>: <a href='https://twitter.com/gotti0916'>@gotti0916</a><br/>\
+    <font color=#9CB7D3>Github</font>: nothing yet<br/>\
+    <font color=#9CB7D3>Qita</font>: <a href='https://qiita.com/gotti0916'>https://qiita.com/gotti0916</a><br/>";
+        }
+        function Notfound() {
+          main.innerHTML = "404 Not Found";
+        }
+
+        var string = "";
+        async function viewString(part, str) {
+          string = str;
+          return new Promise(resolve => {
+            timer = setInterval(function() {
+              viewChar(part);
+            }, 10);
+          });
+        }
+        function viewChar(part) {
+          if (count < string.length) {
+            buffer += string.charAt(count);
+            count++;
+            part.innerHTML = buffer;
+          } else {
+            clearInterval(timer);
+          }
+        }
+      })();
+    </script>
+
+
+    <title>gotti0916</title>
+  </head>
+  <body></body>
+</html>
