@@ -54,7 +54,7 @@
         }
 
         function transfer(page) {
-          history.pushState(null, null, "?p=" + page);
+          history.pushState(null, null, "?page=" + page);
           update(page);
         }
 
@@ -132,25 +132,6 @@
         }
         function Notfound() {
           main.innerHTML = "404 Not Found";
-        }
-
-        var string = "";
-        async function viewString(part, str) {
-          string = str;
-          return new Promise(resolve => {
-            timer = setInterval(function() {
-              viewChar(part);
-            }, 10);
-          });
-        }
-        function viewChar(part) {
-          if (count < string.length) {
-            buffer += string.charAt(count);
-            count++;
-            part.innerHTML = buffer;
-          } else {
-            clearInterval(timer);
-          }
         }
       })();
     </script>
